@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Welcome</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About Us</a>
+        </li>
+        <li *ngIf="AuthService.token==''" class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+          <li *ngIf="AuthService.token==''" class="nav-item">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
+          <li *ngIf="AuthService.token!=''" class="nav-item">
+            <a class="nav-link" (click)="logout()">Logout</a>
+          </li>
+        <li *ngIf="AuthService.token!=''" class="nav-item">
+            <a class="nav-link" routerLink="/admin">Admin</a>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+
+<div [hidden]="notification_status.show==false" class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="notification" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+
+        <strong class="me-auto">{{notification_status.title}}</strong>
+        <small>{{notification_status.time}}</small>
+        <button type="button" (click)="notification_status.show=false" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{notification_status.message}}
+      </div>
+    </div>
+  </div>
+
